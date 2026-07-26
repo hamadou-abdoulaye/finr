@@ -238,21 +238,12 @@ REACT_APP_REVERB_PORT=8080
 
 Après les migrations, tu peux créer un compte via l'interface de login ou directement via l'API :
 
-```bash
-curl -X POST http://localhost:8000/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Chercheur Test",
-    "email": "chercheur@test.com",
-    "password": "password123",
-    "password_confirmation": "password123",
-    "role": "researcher"
-  }'
-```
 
----
+- Pour se Connecter en tant que Chercheur:
+    login : admin@finr.com
+    mot de passe : Admin@1234
 
-## Développé par
+- Pour se connecter en tant que Ingenieur:
+    login : ingenieur@finr.com
+    mot de passe : passer@1234
 
-**ISFAD - RDI**  
-Plateforme d'analyse du raisonnement en STEAM
