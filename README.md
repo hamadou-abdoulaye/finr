@@ -152,81 +152,66 @@ cd finr
 
 ---
 
-### 2. Backend Laravel (`finr-api`)
+### 2. Installer les dépendances (une seule fois)
 
+**Backend Laravel (`finr-api`) :**
 ```bash
 cd finr-api
-
-# Installer les dépendances PHP
 composer install
-
-# Copier et configurer l'environnement
 cp .env.example .env
-
-# Générer la clé d'application
 php artisan key:generate
-
-# Générer la clé JWT
 php artisan jwt:secret
-
-# Créer la base de données et exécuter les migrations
 touch database/database.sqlite
 php artisan migrate
+```
 
-# Lancer le serveur (port 8000)
+**Microservice NLP (`finr-nlp`) :**
+```bash
+cd finr-nlp
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+# macOS/Linux
+source venv/bin/activate
+
+pip install -r requirements.txt
+```
+
+**Frontend React (`finr-app`) :**
+```bash
+cd finr-app
+cp .env.example .env
+npm install
+```
+
+---
+
+### 3. Lancer l'application (3 terminaux)
+
+Ouvre **3 fenêtres de terminal** et lance chaque service :
+
+**Terminal 1 — API Laravel :**
+```bash
+cd FIN-R/finr-api
 php artisan serve
 ```
 
-> L'API sera disponible sur **http://localhost:8000/api**
-
----
-
-### 3. Microservice NLP (`finr-nlp`)
-
+**Terminal 2 — Microservice NLP :**
 ```bash
-cd finr-nlp
-
-# Créer un environnement virtuel Python
-python -m venv venv
-
-# Activer l'environnement (Windows)
-venv\Scripts\activate
-
-# Activer l'environnement (macOS/Linux)
-source venv/bin/activate
-
-# Installer les dépendances
-pip install -r requirements.txt
-
-# Lancer le service (port 8001)
-uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload
+cd FIN-R/finr-nlp
+python -m uvicorn app.main:app --port 8001 --reload
 ```
 
-> Le service NLP sera disponible sur **http://localhost:8001**
-> Documentation interactive : **http://localhost:8001/docs**
-
----
-
-### 4. Frontend React (`finr-app`)
-
+**Terminal 3 — Frontend React :**
 ```bash
-cd finr-app
-
-# Installer les dépendances
-npm install
-
-# Copier et configurer l'environnement
-cp .env.example .env
-
-# Lancer l'application (port 3000)
+cd FIN-R/finr-app
 npm start
 ```
 
-> L'application sera disponible sur **http://localhost:3000**
-
 ---
 
-### 5. Configuration `.env` du frontend
+### 4. Configuration `.env` du frontend
 
 Ouvre `finr-app/.env` et vérifie ces valeurs :
 
