@@ -152,17 +152,38 @@ cd finr
 
 ---
 
-### 2. Installer les dépendances (une seule fois)
+### 2. Installer la base de données MySQL
+
+Assure-toi d'avoir MySQL installé et en cours d'exécution, puis crée la base et importe le dump :
+
+```bash
+mysql -u root -p -e "CREATE DATABASE finr;"
+mysql -u root -p finr < finr.sql
+```
+
+Ensuite, configure le `.env` de Laravel pour pointer vers MySQL :
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=finr
+DB_USERNAME=root
+DB_PASSWORD=ton_mot_de_passe
+```
+
+---
+
+### 3. Installer les dépendances (une seule fois)
 
 **Backend Laravel (`finr-api`) :**
 ```bash
 cd finr-api
 composer install
 cp .env.example .env
+# Remplis DB_DATABASE, DB_USERNAME, DB_PASSWORD dans .env
 php artisan key:generate
 php artisan jwt:secret
-touch database/database.sqlite
-php artisan migrate
 ```
 
 **Microservice NLP (`finr-nlp`) :**
@@ -235,9 +256,6 @@ REACT_APP_REVERB_PORT=8080
 ---
 
 ## Comptes de test
-
-Après les migrations, tu peux créer un compte via l'interface de login ou directement via l'API :
-
 
 - Pour se Connecter en tant que Chercheur:
     login : admin@finr.com
